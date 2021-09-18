@@ -1,0 +1,54 @@
+subscan(){
+	trap 'kill %1; kill %2; kill %3' SIGINT
+	(echo "amass started"; amass enum -config ~/.config/amass/amass.config.ini --passive -df $1 -o amass_$1 -silent > /dev/null; echo "amass ended";) & (echo "subfinder started"; subfinder -config ~/.config/subfinder/config.yaml -all -dL $1 -o subfinder_$1 -silent >/dev/null; echo "subfinder end";) & wait
+	cat amass_$1 subfinder_$1 | sort -u >> subdomain_$1.txt
+	puredns resolve subdomain_$1.txt -r /root/resolvers.txt -w dns_$1.txt -l 5000
+	rm amass_$1 subfinder_$1
+	cat subdomain_$1.txt | httpx -silent -threads 200 > httpx_$1.txt
+}
+
+nuscan(){
+	nuclei -l $1 -o nuclei_$1 -severity low,medium,high,critical -interactsh-url https://c4ypbzfyedf00009jp30gnxmf9wyyyyyb.interact.sh -c 30 -rl 300
+}
+
+webprobe(){
+	 nmap -sS -p$PORTS_WEB --min-parallelism 10 --min-hostgroup 256 --min-rate 100 -iL $1 -oG nmap_web_$1.gnmap -oN nmap_web_out_$1
+	 nmap_parser.sh nmap_web_$1.gnmap --summary --ipport  	
+	 cat parsed_ipport.txt | httpx -silent -threads 200 > nmap_web_http_$1
+}
+
+gethttp(){
+	cat $1 | httpx -silent -threads 100 > httpx_$1
+}
+
+portscan(){
+	nmap -sS -sV --min-parallelism 10 --min-hostgroup 50 --min-rate 100 -iL $1 -oG nmap_1000_$1.gnmap -oN nmap_100_out_$1
+	nmap_parser.sh nmap_1000_$1.gnmap --summary --ipport 
+	cat parsed_ipport.txt | httpx -silent -threads 200 > nmap_1000_http_$1
+}
+
+wayback(){
+	mkdir wb gau juicePast_$1
+	echo "wayback started"
+	trap 'kill %1; kill %2; kill %3' SIGINT
+	(cat $1 | xargs -P10 -I@ sh -c "waybackurls @ > wb/'@'") & (cat $1 | xargs -P10 -I@ sh -c "gau @ > gau/'@'") & wait
+	echo "wayback ended" 
+	cat wb/* gau/* | sort -u | uro > tmp_past_$1
+	echo "httpx"
+	cat tmp_past_$1 | httpx -silent -threads 100 >> past_$1
+	rm tmp_past_$1
+	echo "grep param started"
+	gf juiceExt past_$1>> juicePast_$1/juiceEXT.txt
+	gf langExt past_$1 >> juicePast_$1/langExt
+	gf debug past_$1 >> juicePast_$1/debug.txt
+	gf rce past_$1 >> juicePast_$1/rce.txt
+	gf lfi past_$1 >> juicePast_$1/lfi.txt
+	gf xss past_$1 >> juicePast_$1/xss.txt
+	gf sqli past_$1 >> juicePast_$1/sqli.txt
+	gf idor past_$1 >> juicePast_$1/idor.txt
+	gf "redirect" past_$1 >> juicePast_$1/rediret.txt
+	gf ssrf past_$1 >> juicePast_$1/ssrf.txt
+	gf juiceParam past_$1 >> juicePast_$1/juiceParam.txt
+	gf allParam past_$1 >> juicePast_$1/allParam.txt
+	gf remainder past_$1 >> juicePast_$1/remainder.txt
+}
