@@ -1,0 +1,31 @@
+apt install -y golang
+apt install -y python3-pip 
+
+echo 'export GOROOT=/usr/lib/go' >> ~/.zshrc
+echo 'export GOPATH=$HOME/go' >> ~/.zshrc
+echo 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+
+GO111MODULE=on go get -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder
+GO111MODULE=on go get -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
+GO111MODULE=on go get -v github.com/projectdiscovery/httpx/cmd/httpx
+GO111MODULE=on go get github.com/d3mondev/puredns/v2
+
+git clone https://github.com/vortexau/dnsvalidator.git
+cd dnsvalidator/
+python3 setup.py install
+
+dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o resolvers.txt
+
+git clone https://github.com/shifty0g/ultimate-nmap-parser.git
+chmod 777 ultimate-nmap-parser/tultimate-nmap-parser.sh
+mv ultimate-nmap-parser/ultimate-nmap-parser.sh /usr/bin/nmap_parser.sh
+rm -r ultimate-nmap-parser
+
+go get github.com/tomnomnom/waybackurls
+GO111MODULE=on go get -u -v github.com/lc/gau
+go get -u github.com/tomnomnom/gf
+go get github.com/Emoe/kxss
+pip3 install uro
+
+
