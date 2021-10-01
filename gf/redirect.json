@@ -1,0 +1,29 @@
+{
+  "flags": "-iE",
+  "patterns": [
+    "/cgi-bin/redirect.cgi\\?",
+    "/login\\?to=",
+    "/out/",
+    "/out\\?",
+    "/redirect/",
+    "(&|\\?)checkout_url=",
+    "(&|\\?)continue=",
+    "(&|\\?)dest=",
+    "(&|\\?)destination=",
+    "(&|\\?)go=",
+    "(&|\\?)image_url=",
+    "(&|\\?)next=",
+    "(&|\\?)redir=",
+    "(&|\\?)redirect=",
+    "(&|\\?)redirect_uri=",
+    "(&|\\?)redirect_url=",
+    "(&|\\?)return=",
+    "(&|\\?)returnTo=",
+    "(&|\\?)return_path=",
+    "(&|\\?)return_to=",
+    "(&|\\?)rurl=",
+    "(&|\\?)target=",
+    "(&|\\?)url=",
+    "(&|\\?)view="
+  ]
+}
