@@ -96,3 +96,15 @@ paramgrep(){
 	gf allParam $1 >> juicePast_$1/allParam.txt
 	gf remainder $1 >> juicePast_$1/remainder.txt
 }
+
+dnsBrute(){	
+	while IFS= read -r line
+	do
+		puredns bruteforce /root/bestdns.txt $line -r /root/resolvers.txt -w $line
+	done < $1
+}
+
+permDomain(){
+	gotator -sub $1 -perm /root/perm.txt -depth 1 -numbers 10 -mindup -adv -md > gotator.txt
+	puredns resolve gotator.txt -r /root/resolvers.txt -w permDomain.txt
+}
