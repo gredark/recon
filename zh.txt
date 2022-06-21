@@ -97,6 +97,10 @@ paramgrep(){
 	gf remainder $1 >> juicePast_$1/remainder.txt
 }
 
+valDns(){
+	dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o /root/resolvers.txt
+}
+
 dnsBrute(){	
 	while IFS= read -r line
 	do
