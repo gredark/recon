@@ -52,19 +52,19 @@ wayback(){
 	cat tmp_past_$1 | httpx -silent -threads 100 >> past_$1
 	rm tmp_past_$1
 	echo "grep param started"
-	gf juiceExt past_$1>> juicePast_$1/juiceEXT.txt
-	gf langExt past_$1 >> juicePast_$1/langExt
-	gf debug past_$1 >> juicePast_$1/debug.txt
-	gf rce past_$1 >> juicePast_$1/rce.txt
-	gf lfi past_$1 >> juicePast_$1/lfi.txt
-	gf xss past_$1 >> juicePast_$1/xss.txt
-	gf sqli past_$1 >> juicePast_$1/sqli.txt
-	gf idor past_$1 >> juicePast_$1/idor.txt
-	gf "redirect" past_$1 >> juicePast_$1/rediret.txt
-	gf ssrf past_$1 >> juicePast_$1/ssrf.txt
-	gf juiceParam past_$1 >> juicePast_$1/juiceParam.txt
-	gf allParam past_$1 >> juicePast_$1/allParam.txt
-	gf remainder past_$1 >> juicePast_$1/remainder.txt
+	gf juiceExt past_$1>> juicePass_$1/juiceEXT.txt
+	gf langExt past_$1 >> juicePass_$1/langExt
+	gf debug past_$1 >> juicePass_$1/debug.txt
+	gf rce past_$1 >> juicePass_$1/rce.txt
+	gf lfi past_$1 >> juicePass_$1/lfi.txt
+	gf xss past_$1 >> juicePass_$1/xss.txt
+	gf sqli past_$1 >> juicePass_$1/sqli.txt
+	gf idor past_$1 >> juicePass_$1/idor.txt
+	gf "redirect" past_$1 >> juicePass_$1/rediret.txt
+	gf ssrf past_$1 >> juicePass_$1/ssrf.txt
+	gf juiceParam past_$1 >> juicePass_$1/juiceParam.txt
+	gf allParam past_$1 >> juicePass_$1/allParam.txt
+	gf remainder past_$1 >> juicePass_$1/remainder.txt
 }
 
 asn_recon(){
@@ -82,19 +82,19 @@ getHttp(){
 paramgrep(){
 	mkdir juicePast_$1
 	echo "grep param started"
-	gf juiceExt $1>> juicePast_$1/juiceEXT.txt
-	gf langExt $1 >> juicePast_$1/langExt.txt
-	gf debug $1 >> juicePast_$1/debug.txt
-	gf rce $1 >> juicePast_$1/rce.txt
-	gf lfi $1 >> juicePast_$1/lfi.txt
-	gf xss $1 >> juicePast_$1/xss.txt
-	gf sqli $1 >> juicePast_$1/sqli.txt
-	gf idor $1 >> juicePast_$1/idor.txt
-	gf "redirect" $1 >> juicePast_$1/rediret.txt
-	gf ssrf $1 >> juicePast_$1/ssrf.txt
-	gf juiceParam $1 >> juicePast_$1/juiceParam.txt
-	gf allParam $1 >> juicePast_$1/allParam.txt
-	gf remainder $1 >> juicePast_$1/remainder.txt
+	gf juiceExt $1>> juicePass_$1/juiceEXT.txt
+	gf langExt $1 >> juicePass_$1/langExt.txt
+	gf debug $1 >> juicePass_$1/debug.txt
+	gf rce $1 >> juicePass_$1/rce.txt
+	gf lfi $1 >> juicePass_$1/lfi.txt
+	gf xss $1 >> juicePass_$1/xss.txt
+	gf sqli $1 >> juicePass_$1/sqli.txt
+	gf idor $1 >> juicePass_$1/idor.txt
+	gf "redirect" $1 >> juicePass_$1/rediret.txt
+	gf ssrf $1 >> juicePass_$1/ssrf.txt
+	gf juiceParam $1 >> juicePass_$1/juiceParam.txt
+	gf allParam $1 >> juicePass_$1/allParam.txt
+	gf remainder $1 >> juicePass_$1/remainder.txt
 }
 
 valDns(){
